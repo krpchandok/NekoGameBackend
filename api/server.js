@@ -5,6 +5,10 @@ import {
   generateAllMemoriesForCreature,
 } from './generateMemories.js';
 
+import {
+  generateCreatureDescription,
+} from './generateDescription.js';
+
 
 const app = express();
 const PORT = 3000;
@@ -28,7 +32,20 @@ app.post('/api/generateMemories', async (req, res) => {
   });
 
 
+app.post('/api/generateDescription', async(req, res) => {
+
+  const{ creature } = req.body;
+  const description = await generateCreatureDescription(creature);
+
+  return res.status(200).json({ description });
+
+
+
+});
+
+
 app.listen(PORT, () => {
   console.log(`✅ Memory generation server running at http://localhost:${PORT}`);
 });
+
 
